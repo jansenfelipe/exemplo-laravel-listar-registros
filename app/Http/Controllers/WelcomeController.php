@@ -1,36 +1,33 @@
 <?php namespace App\Http\Controllers;
 
+use App\Cliente;
+use Illuminate\Http\Request;
+
 class WelcomeController extends Controller {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Welcome Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller renders the "marketing page" for the application and
-	| is configured to only allow guests. Like most of the other sample
-	| controllers, you are free to modify or remove it as you desire.
-	|
-	*/
+    private $request;
+    private $cliente;
 
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
+	public function __construct(Request $request, Cliente $cliente)
 	{
 		$this->middleware('guest');
+
+        $this->request = $request;
+        $this->cliente = $cliente;
 	}
 
-	/**
-	 * Show the application welcome screen to the user.
-	 *
-	 * @return Response
-	 */
+
 	public function index()
 	{
-		return view('welcome');
+        /*
+         * Order
+         */
+        $order = $this->request->get('order', 'ASC');
+        $by = $this->request->get('by', 'nome');
+
+        $clientes = $this->cliente->orderBy($by, $order)->paginate();
+
+        return view('welcome', compact('clientes'));
 	}
 
 }

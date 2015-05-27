@@ -145,6 +145,11 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
+        /*
+         * Ordination
+         */
+        'Laraerp\Ordination\OrdinationServiceProvider',
+
 	],
 
 	/*
@@ -193,6 +198,10 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 
+        /*
+         * Ordination
+         */
+        'Order'      => 'Laraerp\Ordination\Facade',
 	],
 
 ];
